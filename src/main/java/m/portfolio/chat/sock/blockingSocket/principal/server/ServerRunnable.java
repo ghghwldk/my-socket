@@ -1,4 +1,4 @@
-package m.portfolio.chat.sock.blockingSocket.manager.server;
+package m.portfolio.chat.sock.blockingSocket.principal.server;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +8,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-@RequiredArgsConstructor
 @Slf4j
-public class ServerRunnable implements Runnable {
+@RequiredArgsConstructor
+public class ServerRunnable implements Runnable{
     private final Socket client;
     private final int bufferSize;
 
@@ -23,7 +23,7 @@ public class ServerRunnable implements Runnable {
 
             os.write(b);
 
-            waitAndEcho(is, os, msg);
+            waitAndEcho(is, os);
         } catch (Throwable e) {
             log.info(e.getMessage());
         } finally {
@@ -31,13 +31,13 @@ public class ServerRunnable implements Runnable {
         }
     }
 
-    private void waitAndEcho(InputStream is, OutputStream os, String msg)
+    private void waitAndEcho(InputStream is, OutputStream os)
             throws IOException {
         while (true) {
             byte[] b = new byte[bufferSize];
             is.read(b, 0, b.length);
 
-            msg = new String(b);
+            String msg = new String(b);
             msg = "echo : " + msg + ">";
 
             b = msg.getBytes();

@@ -1,9 +1,9 @@
-package m.portfolio.chat.sock.netty.converter;
+package m.portfolio.chat.sock.blockingSocket.converter;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
-public class ByteConverter {
+public class ByteToStringConverter {
     public static byte[] convert(String msg) {
         byte[] lengthBytes = ByteBuffer.allocate(4).putInt(msg.length()).array();
         byte[] bodyBytes = msg.getBytes();

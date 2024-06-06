@@ -1,7 +1,7 @@
-package m.portfolio.chat.sock.blockingSocket.manager.server;
+package m.portfolio.chat.sock.blockingSocket.principal.server;
 
 import lombok.extern.slf4j.Slf4j;
-import m.portfolio.chat.sock.blockingSocket.manager.BaseManager;
+import m.portfolio.chat.sock.blockingSocket.principal.BaseManager;
 
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -17,7 +17,7 @@ public class ServerManager extends BaseManager {
         super(port, hostname);
     }
 
-
+    @Override
     public void init(){
         try (ServerSocket server = new ServerSocket()) {
             InetSocketAddress ipep = new InetSocketAddress(this.port);
@@ -36,5 +36,10 @@ public class ServerManager extends BaseManager {
         } catch (Throwable e) {
             log.info(e.getMessage());
         }
+    }
+
+    @Override
+    public void clear() {
+
     }
 }
