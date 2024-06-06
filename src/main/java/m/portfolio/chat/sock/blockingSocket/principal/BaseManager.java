@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 public abstract class BaseManager {
     protected final int port;
     protected final String hostname;
-    protected final static int BUFFER_SIZE = 1024;
 
     protected ExecutorService executorService = Executors.newCachedThreadPool();
 

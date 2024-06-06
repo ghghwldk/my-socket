@@ -1,5 +1,6 @@
 package m.portfolio.chat.sock.blockingSocket.config;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import m.portfolio.chat.global.property.BlockingSocketProperty;
 import m.portfolio.chat.sock.blockingSocket.principal.BaseManager;
@@ -13,7 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Configuration
-@ConditionalOnProperty()
 public class SocketConfig {
     private final BlockingSocketProperty blockingSocketProperty;
 
@@ -39,10 +39,14 @@ public class SocketConfig {
         managerList.add(clientManager);
     }
 
+    @PostConstruct
+    public void start(){
+        this.serverManager.init();
+        this.clientManager.init();
+    }
+
     @PreDestroy
-    public void clear(){
-        managerList.forEach(e->{
-            e.clear();
-        });
+    private void clear(){
+        managerList.forEach(BaseManager::clear);
     }
 }

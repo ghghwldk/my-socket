@@ -9,7 +9,6 @@ import java.io.InputStream;
 @RequiredArgsConstructor
 public class ClientRunnable implements Runnable {
     private final InputStream is;
-    private final int bufferSize;
 
     @Override
     public void run() {

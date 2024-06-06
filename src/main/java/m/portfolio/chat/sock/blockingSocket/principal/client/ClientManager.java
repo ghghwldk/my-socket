@@ -27,11 +27,11 @@ public class ClientManager extends BaseManager {
             client.connect(ipep);
 
             try (OutputStream send = client.getOutputStream();
-                 InputStream recv = client.getInputStream();) {
+                 InputStream is = client.getInputStream();) {
 
                 log.info("Client connected IP address =" + client.getRemoteSocketAddress().toString());
 
-                this.executorService.execute(new ClientRunnable(recv, this.BUFFER_SIZE));
+                this.executorService.execute(new ClientRunnable(is));
 
                 consoleUtil.waitAndSend(send);
             }

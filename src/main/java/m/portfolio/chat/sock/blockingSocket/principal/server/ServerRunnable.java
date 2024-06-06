@@ -2,6 +2,7 @@ package m.portfolio.chat.sock.blockingSocket.principal.server;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import m.portfolio.chat.sock.blockingSocket.converter.LengthHeaderConverter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +13,6 @@ import java.net.Socket;
 @RequiredArgsConstructor
 public class ServerRunnable implements Runnable{
     private final Socket client;
-    private final int bufferSize;
 
     @Override
     public void run() {
@@ -34,14 +34,13 @@ public class ServerRunnable implements Runnable{
     private void waitAndEcho(InputStream is, OutputStream os)
             throws IOException {
         while (true) {
-            byte[] b = new byte[bufferSize];
-            is.read(b, 0, b.length);
+            byte[] b = is.readAllBytes();
+            String msg
+                    = LengthHeaderConverter.convert(b);
 
-            String msg = new String(b);
-            msg = "echo : " + msg + ">";
-
-            b = msg.getBytes();
-            os.write(b);
+            os.write(
+                    LengthHeaderConverter.convert("echo : " + msg + ">")
+            );
         }
     }
 }

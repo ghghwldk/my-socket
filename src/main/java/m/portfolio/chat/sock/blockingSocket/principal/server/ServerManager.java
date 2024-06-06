@@ -28,7 +28,7 @@ public class ServerManager extends BaseManager {
                     Socket client = server.accept();
 
                     list.add(client);
-                    executorService.execute(new ServerRunnable(client, this.BUFFER_SIZE));
+                    executorService.execute(new ServerRunnable(client));
                 } catch (Throwable e) {
                     log.info(e.getMessage());
                 }

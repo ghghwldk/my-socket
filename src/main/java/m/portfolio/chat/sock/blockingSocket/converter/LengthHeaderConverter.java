@@ -4,8 +4,10 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
 public class LengthHeaderConverter {
+    private static final int headerCapacity = 4;
+
     public static byte[] convert(String msg) {
-        byte[] lengthBytes = ByteBuffer.allocate(4).putInt(msg.length()).array();
+        byte[] lengthBytes = ByteBuffer.allocate(headerCapacity).putInt(msg.length()).array();
         byte[] bodyBytes = msg.getBytes();
         byte[] resultByteArray = new byte[lengthBytes.length + bodyBytes.length];
 
@@ -15,13 +17,13 @@ public class LengthHeaderConverter {
         return resultByteArray;
     }
 
-    public static String convertBack(byte[] byteArray) {
-        byte[] lengthBytes = new byte[4];
-        System.arraycopy(byteArray, 0, lengthBytes, 0, 4);
+    public static String convert(byte[] byteArray) {
+        byte[] lengthBytes = new byte[headerCapacity];
+        System.arraycopy(byteArray, 0, lengthBytes, 0, headerCapacity);
         int length = ByteBuffer.wrap(lengthBytes).getInt();
 
         byte[] bodyBytes = new byte[length];
-        System.arraycopy(byteArray, 4, bodyBytes, 0, length);
+        System.arraycopy(byteArray, headerCapacity, bodyBytes, 0, length);
 
         return new String(bodyBytes, StandardCharsets.UTF_8);
     }
