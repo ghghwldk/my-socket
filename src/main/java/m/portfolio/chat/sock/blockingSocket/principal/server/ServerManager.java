@@ -8,17 +8,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class ServerManager extends BaseManager {
     List<Socket> list = new ArrayList<>();
 
     public ServerManager(int port, String hostname) {
-        super(port, hostname);
+        super(port, hostname, Executors.newCachedThreadPool());
     }
 
     @Override
-    public void init(){
+    public void start(){
         try (ServerSocket server = new ServerSocket()) {
             InetSocketAddress ipep = new InetSocketAddress(this.port);
             server.bind(ipep);
@@ -42,4 +43,6 @@ public class ServerManager extends BaseManager {
     public void clear() {
 
     }
+
+
 }

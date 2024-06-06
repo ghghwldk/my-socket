@@ -2,24 +2,24 @@ package m.portfolio.chat.sock.blockingSocket.principal.client;
 
 import lombok.extern.slf4j.Slf4j;
 import m.portfolio.chat.sock.blockingSocket.principal.BaseManager;
-import m.portfolio.chat.sock.blockingSocket.principal.util.ConsoleUtil;
+import m.portfolio.chat.sock.blockingSocket.principal.util.BaseSender;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class ClientManager extends BaseManager {
-    private final ConsoleUtil consoleUtil;
 
-    public ClientManager(int port, String hostname, ConsoleUtil consoleUtil) {
-        super(port, hostname);
-        this.consoleUtil = consoleUtil;
+    public ClientManager(int port, String hostname) {
+        super(port, hostname, Executors.newSingleThreadExecutor());
     }
 
     @Override
-    public void init() {
+    public void start() {
         try (Socket client = new Socket()) {
             InetSocketAddress ipep
                     = new InetSocketAddress(this.hostname, this.port);
@@ -33,7 +33,7 @@ public class ClientManager extends BaseManager {
 
                 this.executorService.execute(new ClientRunnable(is));
 
-                consoleUtil.waitAndSend(send);
+
             }
         } catch (Throwable e) {
             log.info(e.getMessage());
@@ -42,6 +42,5 @@ public class ClientManager extends BaseManager {
 
     @Override
     public void clear() {
-
     }
 }

@@ -13,15 +13,15 @@ import java.net.Socket;
 @RequiredArgsConstructor
 public class ServerRunnable implements Runnable{
     private final Socket client;
+    private static final String welcomeMsg
+            = "Welcome server!\r\n>";
 
     @Override
     public void run() {
         try (OutputStream os = client.getOutputStream();
              InputStream is = client.getInputStream()) {
-            String msg = "Welcome server!\r\n>";
-            byte[] b = msg.getBytes();
 
-            os.write(b);
+            os.write(LengthHeaderConverter.convert(welcomeMsg));
 
             waitAndEcho(is, os);
         } catch (Throwable e) {

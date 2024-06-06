@@ -6,8 +6,6 @@ import m.portfolio.chat.global.property.BlockingSocketProperty;
 import m.portfolio.chat.sock.blockingSocket.principal.BaseManager;
 import m.portfolio.chat.sock.blockingSocket.principal.client.ClientManager;
 import m.portfolio.chat.sock.blockingSocket.principal.server.ServerManager;
-import m.portfolio.chat.sock.blockingSocket.principal.util.ConsoleUtil;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedList;
@@ -20,19 +18,16 @@ public class SocketConfig {
     private final List<BaseManager> managerList = new LinkedList<>();
     private final ServerManager serverManager;
     private final ClientManager clientManager;
-    private final ConsoleUtil consoleUtil;
 
-    public SocketConfig(BlockingSocketProperty blockingSocketProperty, ConsoleUtil consoleUtil) {
+    public SocketConfig(BlockingSocketProperty blockingSocketProperty) {
         this.blockingSocketProperty = blockingSocketProperty;
-        this.consoleUtil = consoleUtil;
 
         this.serverManager = new ServerManager(blockingSocketProperty.getServerPort(),
                 blockingSocketProperty.getServerHostname()
         );
 
         this.clientManager = new ClientManager(blockingSocketProperty.getClientPort(),
-                blockingSocketProperty.getClientHostname(),
-                consoleUtil
+                blockingSocketProperty.getClientHostname()
         );
 
         managerList.add(serverManager);
@@ -41,8 +36,8 @@ public class SocketConfig {
 
     @PostConstruct
     public void start(){
-        this.serverManager.init();
-        this.clientManager.init();
+        this.serverManager.start();
+        this.clientManager.start();
     }
 
     @PreDestroy
