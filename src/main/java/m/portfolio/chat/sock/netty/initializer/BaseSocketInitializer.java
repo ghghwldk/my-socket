@@ -1,4 +1,4 @@
-package m.portfolio.nettychat.netty.initializer;
+package m.portfolio.chat.sock.netty.initializer;
 
 import jakarta.annotation.PreDestroy;
 

@@ -1,13 +1,13 @@
-package m.portfolio.nettychat.netty.converter;
+package m.portfolio.chat.sock.netty.converter;
 
 import java.nio.ByteBuffer;
 
 public class ByteConverter {
-    public static byte[] convert(String body) {
-        byte[] lengthBytes = ByteBuffer.allocate(4).putInt(body.length()).array();
+    public static byte[] convert(String msg) {
+        byte[] lengthBytes = ByteBuffer.allocate(4).putInt(msg.length()).array();
 
         // Convert the body to bytes
-        byte[] bodyBytes = body.getBytes();
+        byte[] bodyBytes = msg.getBytes();
 
         // Create the result byte array
         byte[] resultByteArray = new byte[lengthBytes.length + bodyBytes.length];

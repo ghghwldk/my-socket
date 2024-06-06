@@ -1,11 +1,11 @@
-package m.portfolio.nettychat.netty.handler;
+package m.portfolio.chat.sock.netty.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
-import m.portfolio.nettychat.netty.converter.ByteConverter;
+import m.portfolio.chat.sock.netty.converter.ByteConverter;
 
 import java.nio.charset.Charset;
 

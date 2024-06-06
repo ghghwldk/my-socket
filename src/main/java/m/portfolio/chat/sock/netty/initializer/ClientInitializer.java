@@ -1,4 +1,4 @@
-package m.portfolio.nettychat.netty.initializer;
+package m.portfolio.chat.sock.netty.initializer;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -9,7 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import m.portfolio.nettychat.netty.handler.ClientHandler;
+import m.portfolio.chat.sock.netty.handler.ClientHandler;
 import org.springframework.stereotype.Component;
 
 @Component

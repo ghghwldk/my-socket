@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'm.portfolio.netty-chat' is invalid and this project uses 'm.portfolio.nettychat' instead.
+* The original package name 'm.portfolio.netty-chat' is invalid and this project uses 'm.portfolio.chat' instead.
 
 # Getting Started
 

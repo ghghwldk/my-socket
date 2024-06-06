@@ -1,7 +1,7 @@
-package m.portfolio.nettychat;
+package m.portfolio.chat;
 
-import m.portfolio.nettychat.netty.initializer.ClientInitializer;
-import m.portfolio.nettychat.netty.initializer.ServerInitializer;
+import m.portfolio.chat.sock.netty.initializer.ClientInitializer;
+import m.portfolio.chat.sock.netty.initializer.ServerInitializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
