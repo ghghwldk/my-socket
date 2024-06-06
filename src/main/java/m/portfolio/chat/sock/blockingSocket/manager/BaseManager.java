@@ -1,4 +1,4 @@
-package m.portfolio.chat.sock.blockingSocket.principal;
+package m.portfolio.chat.sock.blockingSocket.manager;
 
 import lombok.RequiredArgsConstructor;
 

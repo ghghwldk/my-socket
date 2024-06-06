@@ -1,4 +1,4 @@
-package m.portfolio.chat.sock.blockingSocket.principal.client;
+package m.portfolio.chat.sock.blockingSocket.listen;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ClientRunnable implements Runnable {
+public class CustomClientListener implements Runnable {
     private final InputStream is;
 
     @Override

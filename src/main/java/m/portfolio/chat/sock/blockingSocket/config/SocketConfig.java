@@ -3,9 +3,9 @@ package m.portfolio.chat.sock.blockingSocket.config;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import m.portfolio.chat.global.property.BlockingSocketProperty;
-import m.portfolio.chat.sock.blockingSocket.principal.BaseManager;
-import m.portfolio.chat.sock.blockingSocket.principal.client.ClientManager;
-import m.portfolio.chat.sock.blockingSocket.principal.server.ServerManager;
+import m.portfolio.chat.sock.blockingSocket.manager.BaseManager;
+import m.portfolio.chat.sock.blockingSocket.manager.ClientManager;
+import m.portfolio.chat.sock.blockingSocket.manager.ServerManager;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedList;
@@ -18,6 +18,7 @@ public class SocketConfig {
     private final List<BaseManager> managerList = new LinkedList<>();
     private final ServerManager serverManager;
     private final ClientManager clientManager;
+
 
     public SocketConfig(BlockingSocketProperty blockingSocketProperty) {
         this.blockingSocketProperty = blockingSocketProperty;

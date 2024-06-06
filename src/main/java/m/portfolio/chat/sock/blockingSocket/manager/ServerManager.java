@@ -1,7 +1,7 @@
-package m.portfolio.chat.sock.blockingSocket.principal.server;
+package m.portfolio.chat.sock.blockingSocket.manager;
 
 import lombok.extern.slf4j.Slf4j;
-import m.portfolio.chat.sock.blockingSocket.principal.BaseManager;
+import m.portfolio.chat.sock.blockingSocket.listen.CustomServerListener;
 
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class ServerManager extends BaseManager {
-    List<Socket> list = new ArrayList<>();
+    List<Socket> clientList = new ArrayList<>();
 
     public ServerManager(int port, String hostname) {
         super(port, hostname, Executors.newCachedThreadPool());
@@ -28,8 +28,8 @@ public class ServerManager extends BaseManager {
                 try {
                     Socket client = server.accept();
 
-                    list.add(client);
-                    executorService.execute(new ServerRunnable(client));
+                    clientList.add(client);
+                    executorService.execute(new CustomServerListener(client, ));
                 } catch (Throwable e) {
                     log.info(e.getMessage());
                 }
@@ -43,6 +43,4 @@ public class ServerManager extends BaseManager {
     public void clear() {
 
     }
-
-
 }

@@ -1,8 +1,10 @@
-package m.portfolio.chat.sock.blockingSocket.principal.server;
+package m.portfolio.chat.sock.blockingSocket.listen;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import m.portfolio.chat.sock.blockingSocket.converter.LengthHeaderConverter;
+import m.portfolio.chat.sock.blockingSocket.codec.decoder.Decodable;
+import m.portfolio.chat.sock.blockingSocket.codec.endcoder.Encodable;
+import m.portfolio.chat.sock.blockingSocket.codec.endcoder.LengthHeaderEncoder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,17 +13,19 @@ import java.net.Socket;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ServerRunnable implements Runnable{
+public class CustomServerListener implements Runnable{
     private final Socket client;
     private static final String welcomeMsg
             = "Welcome server!\r\n>";
+    private final Decodable decodable;
+    private final Encodable encodable;
 
     @Override
     public void run() {
         try (OutputStream os = client.getOutputStream();
              InputStream is = client.getInputStream()) {
 
-            os.write(LengthHeaderConverter.convert(welcomeMsg));
+            os.write(encodable.encode(welcomeMsg));
 
             waitAndEcho(is, os);
         } catch (Throwable e) {
@@ -36,10 +40,10 @@ public class ServerRunnable implements Runnable{
         while (true) {
             byte[] b = is.readAllBytes();
             String msg
-                    = LengthHeaderConverter.convert(b);
+                    = decodable.decode(b);
 
             os.write(
-                    LengthHeaderConverter.convert("echo : " + msg + ">")
+                    LengthHeaderEncoder.convert("echo : " + msg + ">")
             );
         }
     }
