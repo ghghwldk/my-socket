@@ -1,17 +1,23 @@
 package m.portfolio.chat.sock.blockingSocket.send;
 
+import m.portfolio.chat.sock.blockingSocket.codec.endcoder.Encodable;
 import m.portfolio.chat.sock.blockingSocket.codec.endcoder.LengthHeaderEncoder;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class LengthHeaderBaseSender extends BaseSender{
-    public LengthHeaderBaseSender(OutputStream os) {
+
+public abstract class LengthHeaderBaseSender extends BaseSender{
+    private final Encodable encodable;
+
+    public LengthHeaderBaseSender(OutputStream os, Encodable encodable) {
         super(os);
+        this.encodable = encodable;
     }
 
     public void send(String message) throws IOException {
-        byte[] b = LengthHeaderEncoder.convert(message);
-        super.send(b);
+        byte[] bytes = encodable.encode(message);
+
+        super.send(bytes);
     }
 }

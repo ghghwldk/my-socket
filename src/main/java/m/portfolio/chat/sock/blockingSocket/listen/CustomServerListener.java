@@ -1,10 +1,10 @@
 package m.portfolio.chat.sock.blockingSocket.listen;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import m.portfolio.chat.sock.blockingSocket.codec.decoder.Decodable;
 import m.portfolio.chat.sock.blockingSocket.codec.endcoder.Encodable;
-import m.portfolio.chat.sock.blockingSocket.codec.endcoder.LengthHeaderEncoder;
+import m.portfolio.chat.sock.blockingSocket.handler.Handleable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,36 +15,31 @@ import java.net.Socket;
 @RequiredArgsConstructor
 public class CustomServerListener implements Runnable{
     private final Socket client;
-    private static final String welcomeMsg
-            = "Welcome server!\r\n>";
-    private final Decodable decodable;
-    private final Encodable encodable;
+    private final Handleable handleable;
+    private static final String SUCCESSFUL_CONNECTION_MSG
+            = "Successful connection!";
 
+    @SneakyThrows
     @Override
     public void run() {
         try (OutputStream os = client.getOutputStream();
              InputStream is = client.getInputStream()) {
-
-            os.write(encodable.encode(welcomeMsg));
-
-            waitAndEcho(is, os);
+//            os.write(encodable.encode(SUCCESSFUL_CONNECTION_MSG));
+            wait(is);
         } catch (Throwable e) {
             log.info(e.getMessage());
+            throw e;
         } finally {
             log.info("Client disconnected IP address =" + client.getRemoteSocketAddress().toString());
         }
     }
 
-    private void waitAndEcho(InputStream is, OutputStream os)
+    private void wait(InputStream is)
             throws IOException {
         while (true) {
-            byte[] b = is.readAllBytes();
-            String msg
-                    = decodable.decode(b);
+            byte[] bytes = is.readAllBytes();
 
-            os.write(
-                    LengthHeaderEncoder.convert("echo : " + msg + ">")
-            );
+            handleable.onTriggered(bytes);
         }
     }
 }

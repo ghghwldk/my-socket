@@ -3,6 +3,7 @@ package m.portfolio.chat.sock.blockingSocket.config;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import m.portfolio.chat.global.property.BlockingSocketProperty;
+import m.portfolio.chat.sock.blockingSocket.handler.CustomLengthHeaderHandler;
 import m.portfolio.chat.sock.blockingSocket.manager.BaseManager;
 import m.portfolio.chat.sock.blockingSocket.manager.ClientManager;
 import m.portfolio.chat.sock.blockingSocket.manager.ServerManager;
@@ -24,7 +25,8 @@ public class SocketConfig {
         this.blockingSocketProperty = blockingSocketProperty;
 
         this.serverManager = new ServerManager(blockingSocketProperty.getServerPort(),
-                blockingSocketProperty.getServerHostname()
+                blockingSocketProperty.getServerHostname(),
+                new CustomLengthHeaderHandler()
         );
 
         this.clientManager = new ClientManager(blockingSocketProperty.getClientPort(),
