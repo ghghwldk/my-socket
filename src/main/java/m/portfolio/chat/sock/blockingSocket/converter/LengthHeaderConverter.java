@@ -3,7 +3,7 @@ package m.portfolio.chat.sock.blockingSocket.converter;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
-public class ByteToStringConverter {
+public class LengthHeaderConverter {
     public static byte[] convert(String msg) {
         byte[] lengthBytes = ByteBuffer.allocate(4).putInt(msg.length()).array();
         byte[] bodyBytes = msg.getBytes();
