@@ -16,8 +16,6 @@ import java.net.Socket;
 public class CustomServerListener implements Runnable{
     private final Socket client;
     private final Handleable handleable;
-    private static final String SUCCESSFUL_CONNECTION_MSG
-            = "Successful connection!";
 
     @SneakyThrows
     @Override

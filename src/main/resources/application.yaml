@@ -1,5 +1,3 @@
 blocking-socket:
-  serverPort: 9091
-  serverHostname: 127.0.0.1
-  clientPort: 9092
-  clientHostname: 127.0.0.1
+  port: 9091
+  hostname: 127.0.0.1
