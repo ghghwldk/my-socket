@@ -1,6 +1,6 @@
 package m.portfolio.chat.blocking;
 
-import m.portfolio.chat.sock.blockingSocket.sock.ServerSock;
+import m.portfolio.chat.sock.sock.ServerSock;
 
 import java.io.IOException;
 
